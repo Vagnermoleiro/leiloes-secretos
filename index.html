@@ -970,7 +970,7 @@ footer a:hover { color: rgba(255,255,255,0.7); }
       <div class="date-pill" style="filter:blur(5px);user-select:none;pointer-events:none;"><span class="date">08 MAI</span>██████████████████</div>
       <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:rgba(0,0,0,0.45);border-radius:8px;padding:12px 20px;">
         <span style="font-family:sans-serif;font-size:13px;font-weight:700;color:#fff;text-align:center;">🔒 +38 leilões disponíveis apenas para compradores</span>
-        <a href="https://pay.hotmart.com/V105211606K" style="background:#E8281A;color:#fff;font-size:12px;font-weight:700;padding:8px 20px;border-radius:6px;text-decoration:none;letter-spacing:.04em;">Desbloquear lista completa →</a>
+        <a href="https://pay.hotmart.com/V105211606K?src=lp&sck=lp_leiloes_secretos" style="background:#E8281A;color:#fff;font-size:12px;font-weight:700;padding:8px 20px;border-radius:6px;text-decoration:none;letter-spacing:.04em;">Desbloquear lista completa →</a>
       </div>
     </div>
   </div>
@@ -1164,7 +1164,7 @@ footer a:hover { color: rgba(255,255,255,0.7); }
         </div>
       </div>
 
-      <a href="https://pay.hotmart.com/V105211606K" class="btn-primary" style="width:100%;justify-content:center;font-size:17px;padding:20px;">
+      <a href="https://pay.hotmart.com/V105211606K?src=lp&sck=lp_leiloes_secretos" class="btn-primary" style="width:100%;justify-content:center;font-size:17px;padding:20px;">
         Quero acesso agora por R$ 19,90
         <span class="btn-arrow">→</span>
       </a>
@@ -1277,6 +1277,23 @@ function toggleFaq(el) {
   document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
 }
+</script>
+<script>
+/* Rastreamento Percepcar: repassa src/sck da URL para os botoes de checkout.
+   Sem parametros na URL, cai no padrao da landing page. */
+(function () {
+  var q = new URLSearchParams(location.search);
+  var src = q.get('src') || 'lp';
+  var sck = q.get('sck') || 'lp_leiloes_secretos';
+  document.querySelectorAll('a[href*="pay.hotmart.com"], a[href*="go.hotmart.com"]').forEach(function (a) {
+    try {
+      var u = new URL(a.href);
+      u.searchParams.set('src', src);
+      u.searchParams.set('sck', sck);
+      a.href = u.toString();
+    } catch (e) {}
+  });
+})();
 </script>
 </body>
 </html>
